@@ -69,4 +69,4 @@ A Pilha foi escolhida como estrutura principal porque, quando ocorre uma falha o
 Compile com GCC:
 
 ```bash
-gcc sistema_backup.c -o backup
+gcc sistema_COMPLETO-v2.c -o backup
