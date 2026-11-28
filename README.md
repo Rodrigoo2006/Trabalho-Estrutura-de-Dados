@@ -1,72 +1,72 @@
 # Sistema de Backup de Arquivos
 
-Projeto acadêmico desenvolvido para a disciplina de **Estrutura de Dados** do curso de Análise e Desenvolvimento de Sistemas da **UniRuy Wyden**.
+Projeto academico desenvolvido para a disciplina de Estrutura de Dados do curso de Analise e Desenvolvimento de Sistemas (ADS) da UniRuy Wyden.
 
-## 👨‍🎓 Aluno
+## Aluno
 
-- **Nome:** Rodrigo Santos Araújo
-- **Matrícula:** 202503356751
-- **Curso:** Análise e Desenvolvimento de Sistemas (ADS)
-- **Instituição:** UniRuy Wyden
-- **Local:** Salvador - BA
-- **Ano:** 2026
+- Nome: Rodrigo Santos Araujo
+- Matricula: 202503356751
+- Curso: Analise e Desenvolvimento de Sistemas (ADS)
+- Instituicao: UniRuy Wyden
+- Local: Salvador - BA
+- Ano: 2026
 
-## 📌 Situação-Problema e Solução Proposta
+## Situacao-Problema
 
-No desenvolvimento de software e na edição constante de documentos, arquivos passam por diversas modificações diárias. Sem um controle organizado de histórico, alterações incorretas ou sobrescritas acidentais causam perda definitiva de versões anteriores.
+Em ambientes de desenvolvimento de software e edicao continua de documentos, um mesmo arquivo sofre diversas alteracoes ao longo do dia. Sistemas simples de copia acabam sobrescrevendo o arquivo antigo sem manter um historico organizado, fazendo com que versoes anteriores sejam perdidas em caso de erro ou corrupcao.
 
-Para resolver esse problema, foi desenvolvido um protótipo de **Sistema de Backup de Arquivos** aplicando Estruturas de Dados Lineares para gerenciar arquivos, organizar backups pendentes, salvar versões, consultar o histórico e restaurar estados anteriores.
+## Solucao Proposta
 
-## 🧩 Estruturas de Dados Analisadas e Aplicadas
+Foi desenvolvido um prototipo funcional de Sistema de Backup de Arquivos em linguagem C utilizando Estruturas de Dados Lineares para cadastrar arquivos, organizar alteracoes pendentes em fila, salvar versoes de backup, consultar o historico e restaurar o ultimo estado salvo. Alem do codigo principal em C, o repositorio inclui um prototipo visual simplificado em HTML/JavaScript focado na demonstracao da Pilha (LIFO) no navegador.
 
-### 1. Pilha (Stack — LIFO) *(Estrutura Principal)*
-Segue o princípio **LIFO** (*Last In, First Out* — o último a entrar é o primeiro a sair). Armazena o histórico de versões de backup, mantendo sempre a cópia mais recente no topo para restauração imediata.
+## Estruturas de Dados Utilizadas
 
-- **Operações:** `push` (criar backup), `pop` (restaurar último backup) e consulta ao histórico.
-- **Vantagens:** inserção e remoção em tempo constante `O(1)`, implementação simples e ordem cronológica reversa natural.
-- **Limitações:** acesso restrito ao topo, não sendo ideal para buscar versões intermediárias diretamente.
+### 1. Pilha (Stack - LIFO) - Estrutura Principal
+Opera no principio LIFO (Last In, First Out - o ultimo a entrar e o primeiro a sair). Armazena o historico de versoes de backup, mantendo a versao mais recente sempre no topo para restauracao imediata.
 
-### 2. Fila (Queue — FIFO)
-Segue o princípio **FIFO** (*First In, First Out* — o primeiro a entrar é o primeiro a sair). Organiza os arquivos cadastrados ou modificados que aguardam processamento em lote antes da gravação no histórico.
+- Operacoes: empilhar nova versao (`criarBackup` / Push), restaurar a ultima versao (`restaurarBackup` / Pop) e exibir historico (`consultarHistorico`).
+- Vantagens: insercao e remocao em tempo constante `O(1)`, implementacao simples e ordem cronologica reversa natural.
+- Limitacoes: acesso restrito ao topo, nao sendo pratica para acessar diretamente versoes antigas no meio da pilha.
+- Impacto na solucao: garante rapidez na reversao de alteracoes incorretas.
 
-- **Operações:** `enqueue` (enfileirar alteração) e `dequeue` (processar próximo backup).
-- **Vantagens:** garante ordem de chegada justa com custo `O(1)` na entrada e saída.
-- **Limitações:** não permite acessar diretamente a versão mais recente, tornando-se inadequada como histórico de restauração.
+### 2. Fila (Queue - FIFO)
+Opera no principio FIFO (First In, First Out - o primeiro a entrar e o primeiro a sair). Organiza os arquivos cadastrados ou modificados que aguardam processamento em lote antes de serem gravados na pilha de historico.
+
+- Operacoes: enfileirar solicitacao (`enfileirarBackup` / Enqueue) e processar fila (`processarFila` / Dequeue).
+- Vantagens: respeita a ordem de chegada das alteracoes com custo `O(1)` na insercao e remocao.
+- Limitacoes: nao permite acesso direto a versao mais recente, sendo inadequada como historico de restauracao.
+- Impacto na solucao: separa o registro da modificacao do processamento dos backups pendentes.
 
 ### 3. Lista Encadeada
-Estrutura dinâmica formada por nós ligados por ponteiros. Armazena o catálogo geral de arquivos monitorados pelo sistema (nome, última modificação e número de revisões).
+Formada por nos conectados dinamicamente por ponteiros. Gerencia o catalogo geral de arquivos monitorados pelo sistema, armazenando nome, ultima alteracao e numero de revisoes.
 
-- **Operações:** inserção, busca sequencial por nome, atualização de revisões e listagem.
-- **Vantagens:** crescimento dinâmico de memória e inserção rápida em `O(1)` no início.
-- **Limitações:** busca sequencial com custo `O(n)` e uso extra de memória para ponteiros.
+- Operacoes: cadastrar ou atualizar arquivo (`cadastrarArquivo`), busca sequencial por nome e listagem (`listarArquivos`).
+- Vantagens: alocacao dinamica de memoria sem tamanho fixo e insercao em `O(1)` no inicio.
+- Limitacoes: busca sequencial com custo `O(n)` e uso extra de memoria para ponteiros.
+- Impacto na solucao: permite gerenciar varios arquivos de forma flexivel junto com a fila e a pilha.
 
-## 📊 Comparação entre as Estruturas
+## Comparacao entre as Estruturas
 
-| Critério | Pilha (Stack) | Fila (Queue) | Lista Encadeada |
+| Criterio | Pilha (Stack) | Fila (Queue) | Lista Encadeada |
 | :--- | :--- | :--- | :--- |
-| **Política de Acesso** | LIFO (Último a entrar, primeiro a sair) | FIFO (Primeiro a entrar, primeiro a sair) | Acesso sequencial por ponteiros |
-| **Inserção** | `O(1)` no topo | `O(1)` no final | `O(1)` no início ou `O(n)` no fim |
-| **Remoção** | `O(1)` no topo | `O(1)` no início | `O(n)` busca + `O(1)` remoção |
-| **Busca e Acesso** | `O(1)` no topo; `O(n)` internos | `O(1)` no início; `O(n)` internos | `O(n)` busca sequencial por chave |
-| **Facilidade de Implementação** | Alta (um ponteiro de topo) | Alta (ponteiros de início e fim) | Moderada (controle de busca e ligações) |
-| **Organização de Dados** | Ordem cronológica reversa | Ordem de chegada | Flexível para inserções dinâmicas |
-| **Adequação ao Versionamento** | Perfeita (Histórico de versões) | Inadequada para histórico linear | Moderada (Catálogo geral) |
+| Politica de Acesso | LIFO (Ultimo a entrar, primeiro a sair) | FIFO (Primeiro a entrar, primeiro a sair) | Acesso sequencial por ponteiros |
+| Insercao | O(1) no topo | O(1) no final | O(1) no inicio ou O(n) no fim |
+| Remocao | O(1) no topo | O(1) no inicio | O(n) para busca + O(1) remocao |
+| Busca e Acesso | O(1) no topo; O(n) nos internos | O(1) no inicio; O(n) nos internos | O(n) busca sequencial por chave |
+| Custo / Desempenho | Alto desempenho para empilhar e reverter | Alto desempenho para ordem de chegada | Moderado; depende do tamanho nas buscas |
+| Facilidade de Implementacao | Alta (um ponteiro de topo) | Alta (ponteiros de inicio e fim) | Moderada (busca e controle de ligacoes) |
+| Organizacao de Dados | Ordem cronologica reversa | Ordem de chegada | Flexivel para insercoes dinamicas |
+| Adequacao ao Versionamento | Perfeita (Historico de versoes) | Inadequada para historico linear | Moderada (Bom para catalogo geral) |
 
-## ✅ Justificativa da Escolha da Pilha
+## Justificativa Tecnica da Escolha da Pilha
 
-A **Pilha** foi escolhida como estrutura central do sistema porque, em cenários de falha ou alteração incorreta, a necessidade imediata do usuário é recuperar a versão mais recente salva. Uma Fila devolveria a versão mais antiga primeiro, e uma Lista Encadeada exigiria buscas sequenciais em `O(n)`. A Pilha resolve o problema com complexidade `O(1)` tanto para salvar quanto para restaurar backups.
+A Pilha foi escolhida como estrutura principal porque, quando ocorre uma falha ou alteracao indesejada, o operador precisa recuperar primeiro a versao mais recente salva. Uma Fila devolveria a versao mais antiga, enquanto uma Lista Encadeada exigiria buscas sequenciais em `O(n)`. Com a Pilha, tanto o salvamento quanto a restauracao ocorrem em `O(1)` com implementacao direta.
 
-## 💻 Tecnologias
+## Como Executar
 
-- **Linguagem C** (`sistema_backup.c` — implementação completa com Pilha, Fila e Lista Encadeada)
-- **HTML, CSS e JavaScript** (protótipo visual simplificado da Pilha no navegador)
-- **Estruturas de Dados Lineares** (structs e ponteiros)
+### Codigo principal em C (Pilha, Fila e Lista Encadeada)
 
-## ▶️ Como executar
-
-### Código em C (completo — Pilha, Fila e Lista Encadeada)
-
-Compile usando GCC:
+Compile com GCC:
 
 ```bash
 gcc sistema_backup.c -o backup
