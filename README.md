@@ -1,116 +1,74 @@
-Sistema de Backup de Arquivos
+# Sistema de Backup de Arquivos
 
-Projeto acadêmico desenvolvido para a disciplina de Estrutura de Dados do curso de Análise e Desenvolvimento de Sistemas da UniRuy Wyden.
+Projeto acadêmico desenvolvido para a disciplina de **Estrutura de Dados** do curso de Análise e Desenvolvimento de Sistemas da **UniRuy Wyden**.
 
-👨‍🎓 Aluno
+## 👨‍🎓 Aluno
 
-Nome: Rodrigo Santos Araújo
-Matrícula: 202503356751
-Curso: Análise e Desenvolvimento de Sistemas (ADS)
-Instituição: UniRuy Wyden
-Local: Salvador - BA
-Ano: 2026
+- **Nome:** Rodrigo Santos Araújo
+- **Matrícula:** 202503356751
+- **Curso:** Análise e Desenvolvimento de Sistemas (ADS)
+- **Instituição:** UniRuy Wyden
+- **Local:** Salvador - BA
+- **Ano:** 2026
 
-📌 Sobre o projeto
+## 📌 Sobre o projeto
 
-O projeto consiste no desenvolvimento de um protótipo de Sistema de Backup de Arquivos utilizando a linguagem C e conceitos de Estrutura de Dados.
+O projeto apresenta a modelagem e um protótipo funcional de um **Sistema de Backup de Arquivos**, aplicando conceitos de Estruturas de Dados Lineares para gerenciar versões de arquivos, consultar o histórico e restaurar estados anteriores.
 
-A proposta é representar o gerenciamento de diferentes versões de arquivos, permitindo criar backups, consultar o histórico e restaurar versões anteriores.
+Na documentação, são analisadas e comparadas três estruturas de dados:
 
-O projeto utiliza três estruturas para análise e comparação:
+- **Pilha (Stack)** — estrutura principal adotada para o histórico de versões e implementada no protótipo
+- **Fila (Queue)** — analisada para o processamento ordenado de backups em lote
+- **Lista Encadeada** — analisada para o catálogo geral de arquivos
 
-- Pilha
-- Fila
-- Lista Encadeada
+## 🎯 Objetivo
 
-A Pilha é utilizada como estrutura principal para representar o histórico de versões dos backups.
+Demonstrar, de forma teórica e prática, como as Estruturas de Dados resolvem problemas reais de controle de versões e recuperação de arquivos.
 
-🎯 Objetivo
+## 🧩 Estruturas de Dados
 
-Demonstrar, por meio de uma aplicação prática, como diferentes Estruturas de Dados podem ser utilizadas para solucionar um problema real relacionado ao gerenciamento de arquivos e backups.
+### Pilha (LIFO)
+Segue o princípio **LIFO** (*Last In, First Out* — o último a entrar é o primeiro a sair). No projeto, representa o histórico de backups: a versão mais recente fica sempre no topo, permitindo restauração imediata com complexidade $O(1)$.
 
-🧩 Estruturas de Dados
+Principais operações implementadas:
+- `push`: cria e empilha uma nova versão de backup no topo.
+- `pop`: remove e restaura a versão mais recente do topo.
+- Consulta de histórico: exibe as versões empilhadas do topo até a base.
 
-Pilha
+### Fila (FIFO)
+Segue o princípio **FIFO** (*First In, First Out*). No modelo conceitual, organiza arquivos aguardando processamento de backup por ordem de chegada.
 
-A Pilha segue o princípio LIFO (Last In, First Out).
+### Lista Encadeada
+Formada por nós ligados por ponteiros, permitindo inserções dinâmicas para organizar o catálogo de arquivos do sistema.
 
-No projeto, ela representa o histórico de versões dos backups. A versão mais recente fica no topo e pode ser removida primeiro durante uma operação de restauração.
+## 💻 Tecnologias
 
-Principais operações:
+- **HTML, CSS e JavaScript** (protótipo interativo da Pilha no navegador)
+- **Linguagem C** (modelagem do algoritmo e código-fonte na documentação do trabalho)
+- **Estruturas de Dados** (Pilha, Fila e Lista Encadeada)
 
-- "push": adiciona uma nova versão.
-- "pop": remove a versão do topo.
-- "peek": consulta a versão do topo sem removê-la.
+## ⚙️ Funcionalidades do protótipo
 
-Fila
+- Criar novas versões de backup (**Push**)
+- Consultar o histórico de versões em ordem LIFO (do topo para a base)
+- Restaurar o último backup criado (**Pop**)
+- Exibição de mensagens de status das operações
 
-A Fila segue o princípio FIFO (First In, First Out).
+## ▶️ Como executar o protótipo
 
-Ela pode representar arquivos aguardando processamento de backup, fazendo com que o primeiro arquivo colocado na fila seja o primeiro a ser processado.
+1. Baixe ou clone este repositório.
+2. Localize o arquivo HTML do protótipo (`IMPLEMENTADO Backup de arquivos.html`).
+3. Dê um clique duplo no arquivo para abri-lo diretamente em qualquer navegador (Chrome, Edge, Firefox, etc.).
 
-Lista Encadeada
+*(O código-fonte em linguagem C referente à modelagem teórica também pode ser consultado no documento PDF do trabalho.)*
 
-A Lista Encadeada é formada por nós conectados por ponteiros.
+## 📂 Estrutura do repositório
 
-No projeto, pode ser utilizada para armazenar e organizar os arquivos cadastrados no sistema.
-
-💻 Tecnologias
-
-- Linguagem C
-- Estruturas de Dados
-- Structs
-- Ponteiros
-- Terminal/Console
-
-⚙️ Funcionalidades
-
-O sistema possui funcionalidades relacionadas ao gerenciamento de backups, como:
-
-- Cadastro de arquivos
-- Criação de backups
-- Consulta do histórico
-- Restauração de versões
-- Listagem de arquivos
-- Gerenciamento das estruturas de dados
-
-▶️ Como executar
-
-Compile o programa utilizando um compilador C, como GCC:
-
-gcc main.c -o backup
-
-Depois execute:
-
-./backup
-
-No Windows, pode ser utilizado:
-
-backup.exe
-
-📂 Estrutura do projeto
-
-sistema-backup-estruturas-dados/
-│
-├── src/
-│   └── main.c
-│
-├── docs/
-│   └── trabalho.docx
-│
-├── README.md
-│
-└── LICENSE
-
-📚 Contexto acadêmico
-
-Este projeto foi desenvolvido como atividade acadêmica da disciplina de Estrutura de Dados, com o objetivo de aplicar conceitos teóricos em uma situação-problema prática.
-
-O sistema utiliza uma simulação de gerenciamento de versões de backup. Não é necessário realizar cópias físicas reais dos arquivos do computador para demonstrar o funcionamento das estruturas estudadas.
-
-👤 Autor
-
-Rodrigo Santos Araújo
-Matrícula: 202503356751
-ADS — UniRuy Wyden
-Salvador - BA
+```text
+Trabalho-Estrutura-de-Dados/
+├── DOC_Trabalho_Rodrigo.pdf          # Documento completo do trabalho acadêmico
+├── IMPLEMENTADO Backup de arquivos.html # Protótipo funcional da Pilha (LIFO)
+├── Slide.pdf                         # Apresentação em slides do projeto
+├── VIDEO backup Pilha.mp4            # Vídeo demonstrando o funcionamento da Pilha
+├── VÍDEO-EXEMPLO-HTML.mp4            # Vídeo demonstrando o protótipo em HTML
+└── README.md                         # Documentação do repositório
