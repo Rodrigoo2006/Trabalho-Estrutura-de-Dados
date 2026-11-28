@@ -11,64 +11,62 @@ Projeto acadêmico desenvolvido para a disciplina de **Estrutura de Dados** do c
 - **Local:** Salvador - BA
 - **Ano:** 2026
 
-## 📌 Sobre o projeto
+## 📌 Situação-Problema e Solução Proposta
 
-O projeto apresenta a modelagem e um protótipo funcional de um **Sistema de Backup de Arquivos**, aplicando conceitos de Estruturas de Dados Lineares para gerenciar versões de arquivos, consultar o histórico e restaurar estados anteriores.
+No desenvolvimento de software e na edição constante de documentos, arquivos passam por diversas modificações diárias. Sem um controle organizado de histórico, alterações incorretas ou sobrescritas acidentais causam perda definitiva de versões anteriores.
 
-Na documentação, são analisadas e comparadas três estruturas de dados:
+Para resolver esse problema, foi desenvolvido um protótipo de **Sistema de Backup de Arquivos** aplicando Estruturas de Dados Lineares para gerenciar arquivos, organizar backups pendentes, salvar versões, consultar o histórico e restaurar estados anteriores.
 
-- **Pilha (Stack)** — estrutura principal adotada para o histórico de versões e implementada no protótipo
-- **Fila (Queue)** — analisada para o processamento ordenado de backups em lote
-- **Lista Encadeada** — analisada para o catálogo geral de arquivos
+## 🧩 Estruturas de Dados Analisadas e Aplicadas
 
-## 🎯 Objetivo
+### 1. Pilha (Stack — LIFO) *(Estrutura Principal)*
+Segue o princípio **LIFO** (*Last In, First Out* — o último a entrar é o primeiro a sair). Armazena o histórico de versões de backup, mantendo sempre a cópia mais recente no topo para restauração imediata.
 
-Demonstrar, de forma teórica e prática, como as Estruturas de Dados resolvem problemas reais de controle de versões e recuperação de arquivos.
+- **Operações:** `push` (criar backup), `pop` (restaurar último backup) e consulta ao histórico.
+- **Vantagens:** inserção e remoção em tempo constante `O(1)`, implementação simples e ordem cronológica reversa natural.
+- **Limitações:** acesso restrito ao topo, não sendo ideal para buscar versões intermediárias diretamente.
 
-## 🧩 Estruturas de Dados
+### 2. Fila (Queue — FIFO)
+Segue o princípio **FIFO** (*First In, First Out* — o primeiro a entrar é o primeiro a sair). Organiza os arquivos cadastrados ou modificados que aguardam processamento em lote antes da gravação no histórico.
 
-### Pilha (LIFO)
-Segue o princípio **LIFO** (*Last In, First Out* — o último a entrar é o primeiro a sair). No projeto, representa o histórico de backups: a versão mais recente fica sempre no topo, permitindo restauração imediata com complexidade $O(1)$.
+- **Operações:** `enqueue` (enfileirar alteração) e `dequeue` (processar próximo backup).
+- **Vantagens:** garante ordem de chegada justa com custo `O(1)` na entrada e saída.
+- **Limitações:** não permite acessar diretamente a versão mais recente, tornando-se inadequada como histórico de restauração.
 
-Principais operações implementadas:
-- `push`: cria e empilha uma nova versão de backup no topo.
-- `pop`: remove e restaura a versão mais recente do topo.
-- Consulta de histórico: exibe as versões empilhadas do topo até a base.
+### 3. Lista Encadeada
+Estrutura dinâmica formada por nós ligados por ponteiros. Armazena o catálogo geral de arquivos monitorados pelo sistema (nome, última modificação e número de revisões).
 
-### Fila (FIFO)
-Segue o princípio **FIFO** (*First In, First Out*). No modelo conceitual, organiza arquivos aguardando processamento de backup por ordem de chegada.
+- **Operações:** inserção, busca sequencial por nome, atualização de revisões e listagem.
+- **Vantagens:** crescimento dinâmico de memória e inserção rápida em `O(1)` no início.
+- **Limitações:** busca sequencial com custo `O(n)` e uso extra de memória para ponteiros.
 
-### Lista Encadeada
-Formada por nós ligados por ponteiros, permitindo inserções dinâmicas para organizar o catálogo de arquivos do sistema.
+## 📊 Comparação entre as Estruturas
+
+| Critério | Pilha (Stack) | Fila (Queue) | Lista Encadeada |
+| :--- | :--- | :--- | :--- |
+| **Política de Acesso** | LIFO (Último a entrar, primeiro a sair) | FIFO (Primeiro a entrar, primeiro a sair) | Acesso sequencial por ponteiros |
+| **Inserção** | `O(1)` no topo | `O(1)` no final | `O(1)` no início ou `O(n)` no fim |
+| **Remoção** | `O(1)` no topo | `O(1)` no início | `O(n)` busca + `O(1)` remoção |
+| **Busca e Acesso** | `O(1)` no topo; `O(n)` internos | `O(1)` no início; `O(n)` internos | `O(n)` busca sequencial por chave |
+| **Facilidade de Implementação** | Alta (um ponteiro de topo) | Alta (ponteiros de início e fim) | Moderada (controle de busca e ligações) |
+| **Organização de Dados** | Ordem cronológica reversa | Ordem de chegada | Flexível para inserções dinâmicas |
+| **Adequação ao Versionamento** | Perfeita (Histórico de versões) | Inadequada para histórico linear | Moderada (Catálogo geral) |
+
+## ✅ Justificativa da Escolha da Pilha
+
+A **Pilha** foi escolhida como estrutura central do sistema porque, em cenários de falha ou alteração incorreta, a necessidade imediata do usuário é recuperar a versão mais recente salva. Uma Fila devolveria a versão mais antiga primeiro, e uma Lista Encadeada exigiria buscas sequenciais em `O(n)`. A Pilha resolve o problema com complexidade `O(1)` tanto para salvar quanto para restaurar backups.
 
 ## 💻 Tecnologias
 
-- **HTML, CSS e JavaScript** (protótipo interativo da Pilha no navegador)
-- **Linguagem C** (modelagem do algoritmo e código-fonte na documentação do trabalho)
-- **Estruturas de Dados** (Pilha, Fila e Lista Encadeada)
+- **Linguagem C** (`sistema_backup.c` — implementação completa com Pilha, Fila e Lista Encadeada)
+- **HTML, CSS e JavaScript** (protótipo visual simplificado da Pilha no navegador)
+- **Estruturas de Dados Lineares** (structs e ponteiros)
 
-## ⚙️ Funcionalidades do protótipo
+## ▶️ Como executar
 
-- Criar novas versões de backup (**Push**)
-- Consultar o histórico de versões em ordem LIFO (do topo para a base)
-- Restaurar o último backup criado (**Pop**)
-- Exibição de mensagens de status das operações
+### Código em C (completo — Pilha, Fila e Lista Encadeada)
 
-## ▶️ Como executar o protótipo
+Compile usando GCC:
 
-1. Baixe ou clone este repositório.
-2. Localize o arquivo HTML do protótipo (`IMPLEMENTADO Backup de arquivos.html`).
-3. Dê um clique duplo no arquivo para abri-lo diretamente em qualquer navegador (Chrome, Edge, Firefox, etc.).
-
-*(O código-fonte em linguagem C referente à modelagem teórica também pode ser consultado no documento PDF do trabalho.)*
-
-## 📂 Estrutura do repositório
-
-```text
-Trabalho-Estrutura-de-Dados/
-├── DOC_Trabalho_Rodrigo.pdf          # Documento completo do trabalho acadêmico
-├── IMPLEMENTADO Backup de arquivos.html # Protótipo funcional da Pilha (LIFO)
-├── Slide.pdf                         # Apresentação em slides do projeto
-├── VIDEO backup Pilha.mp4            # Vídeo demonstrando o funcionamento da Pilha
-├── VÍDEO-EXEMPLO-HTML.mp4            # Vídeo demonstrando o protótipo em HTML
-└── README.md                         # Documentação do repositório
+```bash
+gcc sistema_backup.c -o backup
